@@ -1,0 +1,186 @@
+STREAM API :
+-------------
+
+1.Find the second highest number 
+
+List<Integer> list = Arrays.asList(1,2,3,4,5);
+	Integer secondHighest = list.stream()
+								.sorted(Comparator.reverseOrder())
+								.skip(1)
+								.findFirst()
+								.orElse(null);
+
+
+
+2.Remove duplicate from List 
+
+List<Integer> list = Arrays.asList(1,2,2,1,5);
+	List<Integer> result = list.stream()
+							   .distinct()
+							   .toList();
+		System.out.print(result);					 
+
+
+3.To count the frequency of the character
+
+Map<Character,Long> map = s.chars()
+						   .mapToObj(c -> (char) c)
+						   .collect(
+						   Collectors.groupingBy(
+						   e -> e,
+						   Collectors.counting()
+						   ));
+				System.out.print(map);
+
+4.First non repeating character
+
+	Optional<Character> c = map.entrySet()
+							   .stream()
+							   .filter(e -> e.getValue() == 1L)
+							   .map(e -> e.getKey())
+							   .findFirst();
+							   
+				System.out.print(c.orElse(null));	
+
+5.Find the employee based on the department 
+
+	Map<String,List<Employee>> map = employeelist
+									 .stream()
+								     .collect
+								     (Collectors.groupingBy(Employee::getDepartment))
+									 
+
+6.To sort the employee salary (Ascending)
+
+employee.stream()
+		.sorted(Comparator.comparing(Employee :: getSalary))
+		.toList();
+		
+
+7.To sort the employee salary (Descending)
+
+employee.stream()
+        .sorted(Comparator.comparing(Employee :: getSalary).reversed())
+		.toList();
+
+8.To sort the employee by salary Descending and name Ascending
+
+employee.stream()
+        .sorted(Comparator.comparing(Employee :: getSalary).reversed()
+		.thenComparing(Employee :: getName))
+		.toList();
+		
+9.To sort the employee salary Descending and name Descending
+
+employee.stream()
+		.sorted(Comparator.comparing(Employee :: getSalary).reversed()
+		.thenComparing(Employee :: getName,Comparator.reverseOrder()))
+		.toList();
+		
+10.To sort the Integer Ascending
+
+list.stream()
+    .sorted()
+	.toList()
+	
+11.To sort the Integer Descending
+
+list.stream()
+    .sorted(Comparator.reverseOrder())
+	.toList();
+	
+12.Given a list of strings:
+["Apple", "Banana", "apple", "banana", "kiwi"]
+and an integer k = 2.
+Write a Java program using Stream API to:
+Convert all words to lowercase.
+Count the frequency of each word.
+Print the words whose frequency is exactly k.
+Output should be in lexicographical order.
+Expected Output:
+apple
+banana
+
+
+List<String> input = Arrays.asList("Apple","Banana","apple","banana","kiwi");
+int k = 2;
+
+input.stream()
+	 .map(String :: toLowerCase)
+	 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+	 .entrySet()
+	 .stream()
+	 .filter(e -> e.getValue() == k)
+	 .map(Map.Entry :: getKey)
+	 .sorted()
+	 .forEach(System.out :: println);
+	 
+incase of given array we can use Arrays.stream(input) , toArray(String :: new)
+
+13.Top K frequent element 
+
+
+input.stream()
+	 .map(String :: toLowerCase)
+	 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+	 .entrySet()
+	 .stream()
+	 .sorted(Comparator.comparing(Map.Entry :: getValue).reversed())
+	 .map(Map.Entry :: getKey)
+	 .limit(k)
+	 .forEach(System.out :: println);
+	 
+14.Find the maximum value in a list of integer ?
+
+
+List<Integer> list = Arrays.asList(1,2,3,4,5);
+Integer maxElement = list.stream()
+                         .max(Integer :: compare)
+						 .orElse(null);
+						 
+15.Find the minimum value in a list of integer  ?
+
+List<Integer> list = Arrays.asList(1,2,3,4,5);
+Integer minElement = list.stream()
+                         .min(Integer :: compare)
+						 .orElse(null); 
+	 
+16.Convert list of string in uppercase using Java 8
+
+List<String> result = list.stream()
+                          .map(String :: toUpperCase)
+						  .toList();
+						  
+
+17.Find string starts with letter "A";
+List<String> result = list.stream()
+                          .map(String :: toUpperCase)
+						  .filter(s -> s.startWith("A"))
+						  .toList();
+						  
+18.Count the number of strings with length > 3
+long count = list.stream()
+                 .filter(s -> s.length() > 3)
+                 .count();
+						
+
+19.Join a list of string with comma using java 8
+String result = list.stream()
+                    .collect(Collectors.joining(","));
+					
+
+20.Convert a list of integer using set in Java 8
+Set<Integer> set = list.stream
+                       .collect(Collectors.toSet());
+					   
+
+21.Find the first element of the list using Java 8
+Integer firstelement = list.stream()
+                           .findFirst()
+						   .orElse(null);
+						   
+22.Sum of numbers in the list using Java 8
+List<Integer> result = list.stream()
+                           .mapToInt(Integer :: intValue)
+						   .sum();
+						   
